@@ -1,0 +1,44 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="services/fd-rest-element-service.html">
+<link rel="import" href="plug-item.html">
+
+<polymer-element name="plug-list" attributes="show">
+  <template>
+    <style>
+    :host {
+      display: block;
+      width: 100%;
+    }
+    plug-item {
+      margin-bottom: 30px;
+    }
+    </style>
+    <fd-rest-element-service id="service" fdtype="plugins" fditems="{{plugins}}" ></fd-rest-element-service>
+    <!--<plugin-service id="service" plugins="{{plugins}}"></plugin-service>-->
+    <div layout vertical center>
+     <template repeat="{{plug in plugins}}">
+     <plug-item>
+       <img src="{{getImg(plug)}}" width="70" height="70">
+       <h2>{{plug.pluginName}}</h2>
+       <p>{{plug.description}}</p>
+     </plug-item>
+   </template>
+  </div>    
+  </template>
+
+  <script>
+    Polymer('plug-list', {
+    getImg: function(plug) {
+      // no service backend, just log the change
+      var status = plug.isRunning? 'running': 'stopped';
+      //TODO: figure out how to move this to a service
+      //var src = 'https://fritz.bestmazzo.it:9113/v3/resources/' + plug.className+'-' + status +'.png';
+      var src = 'https://fritz.bestmazzo.it:9113/v3/resources/plugin-' + status +'.png';
+      console.log(src);
+      return src;
+    }
+  });
+  </script>
+
+</polymer-element>

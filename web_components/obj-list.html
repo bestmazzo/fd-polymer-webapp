@@ -1,0 +1,43 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="services/fd-rest-element-service.html">
+<link rel="import" href="obj-item.html">
+
+<polymer-element name="obj-list" attributes="show">
+  <template>
+    <style>
+    :host {
+      display: block;
+      width: 100%;
+    }
+    obj-item {
+      margin-bottom: 30px;
+    }
+    </style>
+    <fd-rest-element-service id="service" elements="{{objects}}" type="objects"></fd-rest-element-service>
+    <!--<plugin-service id="service" plugins="{{plugins}}"></plugin-service>-->
+    <div layout vertical center>
+     <template repeat="{{obj in objs}}">
+     <plug-item>
+       <img src="{{getImg(obj)}}" width="70" height="70">
+       <h2>{{obj.name}}</h2>
+       <p>{{obj.description}}</p>
+     </plug-item>
+   </template>
+  </div>    
+  </template>
+
+  <script>
+    Polymer('obj-list', {
+    getImg: function(obj) {
+      // no service backend, just log the change
+      var icon = obj.representation[obj.currentRepresentation].icon;
+      //TODO: figure out how to move this to a service
+      //var src = 'https://fritz.bestmazzo.it:9113/v3/resources/' + plug.className+'-' + status +'.png';
+      var src = 'https://fritz.bestmazzo.it:9113/v3/resources/' + icon ;
+      console.log(src);
+      return src;
+    }
+  });
+  </script>
+
+</polymer-element>

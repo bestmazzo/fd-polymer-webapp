@@ -1,0 +1,83 @@
+<link rel="import" href="../../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../../bower_components/core-drawer-panel/core-drawer-panel.html">
+<link rel="import" href="../../bower_components/core-header-panel/core-header-panel.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/core-item/core-item.html">
+<link rel="import" href="../../bower_components/core-icons/iconsets/social-icons.html">
+<link rel="import" href="../../bower_components/core-icons/iconsets/maps-icons.html">
+<link rel="import" href="../../bower_components/core-icons/iconsets/image-icons.html">
+<link rel="import" href="../../bower_components/core-menu/core-menu.html">
+
+<link rel="import" href="fd-items-menu.html">
+<link rel="import" href="../plug-list.html">
+<link rel="import" href="../obj-list.html">
+<!-- TODO: change all this to use the core-scalfold element -->
+<polymer-element name="fd-layout" attributes="responsiveWidth">
+<template>
+
+  <link rel="stylesheet" href="fd-layout.css">
+
+  <core-drawer-panel id="drawerPanel" narrow="{{narrow}}" responsiveWidth="{{responsiveWidth}}">
+    <core-header-panel drawer mode="waterfall-tall">
+      <core-toolbar>
+       <img src="../../images/freedomotic_48_170.svg">
+      </core-toolbar>
+       <core-menu selected="{{selected}}" selectedItem="{{sampleName}}" on-core-activate="{{togglePanel}}">-->
+          <core-item icon="maps:map" label="Environments"></core-item>
+          <core-item icon="extension" label="Plugins"></core-item>
+          <core-item icon="shopping-cart" label="Marketplace"></core-item>
+          <core-item icon="account-box" label="Objects"></core-item>
+          <core-item icon="send" label="Commands"></core-item>
+          <core-item icon="image:flash-on" label="Triggers"></core-item>
+          <core-item icon="social:pages" label="Dashboard"></core-item>
+        </core-menu>
+    </core-header-panel>
+    
+    <!--<core-header-panel id="mainHeaderPanel" main mode="{{narrow ? 'waterfall-tall' : 'cover'}}">-->
+     <core-header-panel id="mainHeaderPanel" main mode="waterfall-tall">
+
+      <core-toolbar >
+        <paper-icon-button id="menuButton" icon="menu" on-tap="{{togglePanel}}"></paper-icon-button>
+        <div>{{sampleName.label}}</div>
+      </core-toolbar>
+      <!-- From example to be used
+      <core-selector class="card" selected="{{selected}}">
+        <content id="samples" select="*"></content>
+      </core-selector>
+        -->
+     
+       <div class="container" layout vertical center>
+          <plug-list show="all"></plug-list>
+        </div> 
+    </core-header-panel>
+  </core-drawer-panel>
+
+</template>
+<script>
+
+  Polymer('fd-layout', {
+    
+    selected: 0,
+    
+    responsiveWidth: '800px',
+    
+    // attached: function() {
+    //   this.updateMenu();
+    // },
+    
+    // updateMenu: function() {
+    //   this.sampleNames = [];
+    //   Array.prototype.forEach.call(this.$.samples.getDistributedNodes(), 
+    //     function(sample) {
+    //       this.sampleNames.push(sample.getAttribute('label'));
+    //     }.bind(this));
+    // },
+    
+    togglePanel: function() {
+      this.$.drawerPanel.togglePanel();
+    }
+  
+  });
+
+</script>
+</polymer-element>
