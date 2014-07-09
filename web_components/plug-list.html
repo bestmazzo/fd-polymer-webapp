@@ -1,5 +1,4 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 <link rel="import" href="services/fd-rest-element-service.html">
 <link rel="import" href="plug-item.html">
 
@@ -14,8 +13,7 @@
       margin-bottom: 30px;
     }
     </style>
-    <fd-rest-element-service id="service" fdtype="plugins" fditems="{{plugins}}" ></fd-rest-element-service>
-    <!--<plugin-service id="service" plugins="{{plugins}}"></plugin-service>-->
+    <fd-rest-element-service id="service" fdtype="plugins" fditems="{{plugins}}"></fd-rest-element-service>
     <div layout vertical center>
      <template repeat="{{plug in plugins}}">
      <plug-item>

@@ -9,39 +9,25 @@
 -->
 
 <!--
-  An array of plugins objects, with the following format:
+  An array of freedomotic elements:
   //TODO: FILL THIS WITH THE CORRECT INFORMATION FOR PLUGINS
   <table border="0">
-    <tr>
-      <td><code>uid</code></td>
-      <td>Number</td>
-      <td>Unique ID for this post.</td>
-    </tr>
-     <tr>
-      <td><code>username</code></td>
-      <td>String</td>
-      <td>Poster's username.</td>
-    </tr>
-    <tr>
-      <td><code>avatar</code></td>
-      <td>String</td>
-      <td>URL for the user's avatar.</td>
-    </tr>  
-         <tr>
-      <td><code>text</code></td>
-      <td>String</td>
-      <td>Post text.</td>
-    </tr>  
-    <tr>
-      <td><code>favorite</code></td>
-      <td>Boolean</td>
-      <td>True if the current user favorited this post.</td>
-    </tr>
+   
   </table>
   
-  @attribute plugins 
+  @attribute fditems 
   @type Array
   @default []
+-->
+
+<!--
+  An string with the freedomotic type of element to be retrieved:
+  Objects
+  Plugins
+  Environments
+  
+  @attribute fdtype 
+  @type string
 -->
 
 <polymer-element name="fd-rest-element-service" attributes="fditems fdtype">
@@ -57,11 +43,17 @@
       on-core-response="{{elementsLoaded}}"
       handleAs="json"  withCredentials >
       </core-ajax>
+      
+       <!--test for using test data
+       url="../../test/{{fdtype}}.json/"-->
+       
   </template>
   <script>
   Polymer('fd-rest-element-service', {
     
-    fdtype:' ',
+    fdtype:'environments',
+    
+   // usetestdata: false,
     
     created: function() {
       this.fditems = [];
@@ -85,7 +77,14 @@
     activatePlugin: function(uid, isRunning) {
       // no service backend, just log the change
       console.log('Favorite changed: ' + uid + ", now: " + isFavorite);
-    }
+    },
+    
+    // obtainUrl: function(){
+    //   if (this.usetestdata)
+    //     return "/../../test/"+this.fdtype+".json";
+    //   else
+    //     return "https://fritz.bestmazzo.it:9113/v3/"+this.fdtype+"/";
+    // }
   });
   </script>
 </polymer-element>

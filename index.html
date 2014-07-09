@@ -10,9 +10,9 @@
   <link rel="import" href="web_components/layout/fd-layout.html">
   <style>
   html,body {
-    height: 100%;
-    margin: 0;
-    background-color: #E5E5E5;
+  /*  height: 100%;*/
+  /*  margin: 0;*/
+  /*  background-color: #E5E5E5;*/
     font-family: 'RobotoDraft', sans-serif;
   }
   /*core-header-panel {*/
@@ -65,7 +65,15 @@
 </head>
 
 <body unresolved>
-  <fd-layout touch-action="auto"></fd-layout>
+  <fd-layout touch-action="auto">
+     <core-item icon="maps:map" label="Environments" type="plug-list"></core-item>
+     <core-item icon="extension" label="Plugins" type="plug-list"></core-item>
+     <core-item icon="shopping-cart" label="Marketplace" type="plug-list"></core-item>
+     <core-item icon="account-box" label="Objects" type="obj-list"></core-item>
+     <core-item icon="send" label="Commands" type="plug-list"></core-item>
+     <core-item icon="image:flash-on" label="Triggers" type="plug-list"></core-item>
+     <core-item icon="social:pages" label="Dashboard" type="plug-list"></core-item>
+  </fd-layout>
 </body>
 
 </html>
