@@ -60,6 +60,7 @@ polyfill-next-selector { content: 'core-menu#menu core-item.core-selected'; }
   background-color: rgba(136,174,32,0.4);/*#88ae20;#dedede;*/
 }
 
+
 /* card */
 #card {
   display: block;
@@ -118,7 +119,7 @@ polyfill-next-selector { content: '#drawerPanel:not([narrow]) .menuButton';}
   letter-spacing: 0.05em;
   font-size: 24px;
   font-weight: 400;
-  color: #5265a2;
+  color: #89ae20;/* #5265a2;*/
 }
 
 #frame {

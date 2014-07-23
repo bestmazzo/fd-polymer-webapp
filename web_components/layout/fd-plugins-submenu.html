@@ -1,0 +1,17 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../services/fd-rest-element-service.html">
+
+<polymer-element name="fd-plugins-submenu" >
+  <template>
+     <fd-rest-element-service id="pluginsService" fdtype="plugins" fditems ={{plugins}}></fd-rest-element-service>
+     <core-submenu  icon="extension" label="Plugins">
+       <template is="auto-binding" repeat="{{plug in plugins}}">
+          <core-item icon="extension" label="{{plug.pluginName}}" type="plug-list"></core-item>
+       </template> 
+     </core-submenu>
+  </template>
+
+  <script>
+    Polymer('fd-plugins-submenu');
+  </script>
+</polymer-element>

@@ -1,6 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="services/fd-rest-element-service.html">
-<link rel="import" href="obj-item.html">
+<!-- <link rel="import" href="obj-item.html"> -->
 
 <polymer-element name="obj-list" attributes="show">
   <template>
@@ -13,7 +13,7 @@
       margin-bottom: 30px;
     }
     </style>
-    <fd-rest-element-service id="service"  fdtype="objects" fditems="{{objects}}"></fd-rest-element-service>
+    <fd-rest-element-service id="objectsService"  fdtype="objects" fditems="{{objects}}"></fd-rest-element-service>
     <div layout vertical center>
      <template repeat="{{obj in objects}}">
      <plug-item>

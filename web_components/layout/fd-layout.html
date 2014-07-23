@@ -6,14 +6,13 @@
 <link rel="import" href="../../bower_components/core-icons/iconsets/social-icons.html">
 <link rel="import" href="../../bower_components/core-icons/iconsets/maps-icons.html">
 <link rel="import" href="../../bower_components/core-icons/iconsets/image-icons.html">
-<link rel="import" href="../../bower_components/core-menu/core-menu.html">
-<link rel="import" href="../../bower_components/core-scaffold/core-scaffold.html">
+
+<link rel="import" href="../services/fd-rest-element-service.html">
+<link rel="import" href="fd-menu.html">
 
 <link rel="import" href="../plug-list.html">
 <link rel="import" href="../obj-list.html">
-<!-- TODO: change all this to use the core-scalfold element 
-  Not needed. The core-scaffold does the same that the following
--->
+
 <polymer-element name="fd-layout" attributes="responsiveWidth">
 <template>
 
@@ -24,39 +23,26 @@
     
     <core-header-panel drawer >
       <core-toolbar class="{{ {'medium-tall' : !narrow} | tokenList }}">
-       <img class="bottom  fit" src="../../images/freedomotic_white.svg">
+       <img class="bottom fit" src="../../images/freedomotic_white.svg">
       </core-toolbar>
-      <core-menu id="menu" selected="{{selected}}" on-core-select="{{menuSelect}}" selectedItem="{{itemName}}" on-core-activate="{{togglePanel}}">
-        <content></content>   
-      </core-menu>
+      
+      <fd-menu id="menu" on-core-select="{{menuSelect}}"></fd-menu>
     </core-header-panel>
     
-    
-    
     <core-header-panel id="mainHeaderPanel" main mode="{{narrow ? 'waterfall' : 'cover'}}">
-     <!--<core-header-panel id="mainHeaderPanel" main mode="waterfall-tall">-->
-
       <core-toolbar class="{{ {'medium-tall' : !narrow} | tokenList }}">
         <content select=".menuButton" on-tap="{{togglePanel}}">
           <paper-icon-button class="menuButton fallback" icon="menu"></core-icon-button>
         </content>
-      
-        <!--<paper-icon-button id="menuButton" hidden?="{{!narrow}}" icon="menu" on-tap="{{togglePanel}}"></paper-icon-button>-->
-        <div>{{itemName.label}}</div>
+        <div hidden?="{{!narrow}}">{{item.label}}</div>
       </core-toolbar>
-       <!-- From example to be used -->
-      <!--<core-selector class="card" selected="{{selected}}">
-        <content id="samples" select="*"></content>
-      </core-selector>
-        -->
-        <!--<core-selector class="container">
-        <!--  <plug-list show="all"></plug-list>-->
-        <!-- </core-selector> -->
-        <div id="card" on-transitionend="{{cardTransitionDone}}">
-          <core-selector id="frame" class="container" layout vertical center>
-            <!--<plug-list show="all"></plug-list>-->
-          </core-selector>
-        </div>
+      
+      <div id="card" on-transitionend="{{cardTransitionDone}}" hidden?="{{!item}}">
+        <div class="element-label" hidden?="{{narrow}}">{{item.label}}</div>
+        <core-selector id="frame" class="container" layout vertical center>
+          <!--<plug-list show="all"></plug-list>-->
+        </core-selector>
+      </div>
         
     </core-header-panel>
   </core-drawer-panel>
@@ -71,36 +57,40 @@
     
     responsiveWidth: '860px',
     
+    ready:function(){
+      window.addEventListener('resize', this.updateFrameHeight.bind(this));
+    },
+    
     created: function(){
       this.frameElement = document.createElement('div');
+      //this.fdplugins = document.getElementById("pluginsService");
+      //this.fdobjects = document.getElementById("objectsService");
+      
     },
      attached: function() {
        this.$.frame.appendChild(this.frameElement);
        //this.updateMenu();
      },
     
-    // updateMenu: function() {
-    //   this.sampleNames = [];
-    //   Array.prototype.forEach.call(this.$.samples.getDistributedNodes(), 
-    //     function(sample) {
-    //       this.itemName.push(sample.getAttribute('label'));
-    //     }.bind(this));
-    // },
-    
-    menuSelect: function(e, detail) {
+     menuSelect: function(e, detail) {
       if (detail.isSelected) {
         this.item = detail.item;
         if (this.item.children.length) {
           this.item.selected = 0;
         }
         this.item.tag = this.item.getAttribute('tag');
-        var type = this.item.getAttribute('type');
+        //var type = this.item.getAttribute('type');
         //TODO: avoid always creating elements.
-        var el = document.createElement(type);
+        var el = document.createElement(this.item.tag);
+        
         this.$.frame.removeChild(this.frameElement);
         this.frameElement = el;
         this.$.frame.appendChild(this.frameElement);
+        if (this.narrow) {
+          this.$.drawerPanel.closeDrawer();
+        } else{
         this.animateCard();
+        }
       }
     },
     
@@ -132,8 +122,34 @@
     
     togglePanel: function() {
       this.$.drawerPanel.togglePanel();
+    },
+    
+    resizeFrame: function() {
+      this.job('resizeFrame', function() {
+        this.updateFrameHeight();
+      });
+    },
+    
+    updateFrameHeight: function() {
+      var frame = this.$.frame;
+      var doc = frame.contentDocument;
+      if (doc) {
+        var docElt = doc.documentElement;
+        // TODO(ffu); expose scroll info from header-panel
+        var pos = this.$.mainHeaderPanel.$.mainContainer.scrollTop;
+        frame.style.height = 'auto';
+        frame.style.height = docElt.scrollHeight + 'px';
+        if (doc.body) {
+          var s = doc.body.style;
+          s.overflow = 'hidden';
+          // to avoid the 'blinking bug'
+          // https://code.google.com/p/chromium/issues/detail?id=332024
+          s.webkitTransform = s.transform = 'translateZ(0)';
+        }
+        this.$.mainHeaderPanel.$.mainContainer.scrollTop = pos;
+      }
     }
-  
+    
    });
 
 </script>

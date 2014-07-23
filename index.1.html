@@ -8,10 +8,8 @@
   <link rel="import" href="bower_components/font-roboto/roboto.html">
   <link rel="import" href="web_components/layout/fd-layout.html">
   <link rel="import" href="web_components/layout/fd-menu.html">
-  <link rel="import" href="web_components/layout/fd-plugins-submenu.html">
-  <link rel="import" href="web_components/services/fd-rest-element-service.html">
-  <link rel="import" href="bower_components/core-menu/core-submenu.html">
-  <link rel="import" href="bower_components/core-item/core-item.html">
+  <link rel="import" href="../../bower_components/core-menu/core-submenu.html">
+  <link rel="import" href="../../bower_components/core-item/core-item.html">
   <style>
   html,body {
   /*  height: 100%;*/
@@ -68,10 +66,9 @@
 </head>
 
 <body unresolved>
-  <fd-rest-element-service id="pluginsService" fdtype="plugins" ></fd-rest-element-service>
-  <fd-rest-element-service id="objectsService" fdtype="objects" ></fd-rest-element-service>
-  <fd-layout touch-action="auto">
-  </fd-layout>
+  <fd-menu></fd-menu>
+  <!--<fd-layout touch-action="auto">-->
+  <!--</fd-layout>-->
 </body>
 
 </html>

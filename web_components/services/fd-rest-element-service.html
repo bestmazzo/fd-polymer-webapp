@@ -40,9 +40,10 @@
     <core-ajax id="ajax" 
       auto 
       url="https://fritz.bestmazzo.it:9113/v3/{{fdtype}}/"
-      on-core-response="{{elementsLoaded}}"
+      disabled-on-core-response="{{elementsLoaded}}"
+      response="{{fditems}}"
       handleAs="json"  withCredentials >
-      </core-ajax>
+    </core-ajax>
       
        <!--test for using test data
        url="../../test/{{fdtype}}.json/"-->
