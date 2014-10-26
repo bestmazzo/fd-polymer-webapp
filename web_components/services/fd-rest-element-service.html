@@ -30,7 +30,7 @@
   @type string
 -->
 
-<polymer-element name="fd-rest-element-service" attributes="fditems fdtype">
+<polymer-element name="fd-rest-element-service" attributes="fditems fdtype fduuid">
   <template>
     <style>
     :host {
@@ -39,7 +39,7 @@
     </style>
     <core-ajax id="ajax" 
       auto 
-      url="https://fritz.bestmazzo.it:9113/v3/{{fdtype}}/"
+      url="https://fritz.bestmazzo.it:9113/v3/{{fdtype}}/{{fduuid}}"
       disabled-on-core-response="{{elementsLoaded}}"
       response="{{fditems}}"
       handleAs="json"  withCredentials >
@@ -53,6 +53,7 @@
   Polymer('fd-rest-element-service', {
     
     fdtype:'environments',
+    fduuid:'',
     
    // usetestdata: false,
     

@@ -1,0 +1,49 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-icon-button/core-icon-button.html">
+
+<polymer-element name="object-item" attributes="item">
+  <template>
+    <style>
+    :host {
+      display: block;
+      position: relative;
+      background-color: white;
+      padding: 20px;
+      width: 100%;
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+    .obj-header {
+      margin-bottom: 10px;
+    }
+      polyfill-next-selector { content: '.obj-header h2'; }
+  .obj-header ::content h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 300;
+  }
+  polyfill-next-selector { content: '.obj-header img'; }
+  .obj-header ::content img {
+    width: 70px;
+    border-radius: 50%;
+    margin: 10px;
+  }
+    
+  </style>
+    <div class="obj-header" layout horizontal center>
+       <img src="{{imgSrc}}" width="70" height="70"> 
+       <h2>{{item.name}}</h2>
+  </div>
+    <p>{{item.description}}</p>
+  </template>
+  <script>
+  Polymer('object-item', {
+    ready: function() {
+        this.async(function() {
+          var obj = this.item.representation[this.item.currentRepresentation].icon;
+          this.imgSrc = 'https://fritz.bestmazzo.it:9113/v3/resources/' + obj;
+        });
+      }
+  });
+  </script>
+</polymer-element>

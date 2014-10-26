@@ -10,8 +10,8 @@
 <link rel="import" href="../services/fd-rest-element-service.html">
 <link rel="import" href="fd-menu.html">
 
-<link rel="import" href="../plug-list.html">
-<link rel="import" href="../obj-list.html">
+<!-- <link rel="import" href="../plug-list.html"> -->
+<!-- <link rel="import" href="../obj-list.html"> -->
 
 <polymer-element name="fd-layout" attributes="responsiveWidth">
 <template>
@@ -75,13 +75,21 @@
      menuSelect: function(e, detail) {
       if (detail.isSelected) {
         this.item = detail.item;
-        if (this.item.children.length) {
-          this.item.selected = 0;
-        }
+        
+        // if (this.item.children.length) {
+        //   this.item.selected = 0;
+        // }
         this.item.tag = this.item.getAttribute('tag');
+        
         //var type = this.item.getAttribute('type');
-        //TODO: avoid always creating elements.
+        
+        var kind = this.item.getAttribute('itemKind');
+        var uuid = this.item.getAttribute('uuid');
+        
+        // TODO: avoid always creating elements.
         var el = document.createElement(this.item.tag);
+        el.itemKind = kind;
+        el.uuid = uuid;
         
         this.$.frame.removeChild(this.frameElement);
         this.frameElement = el;

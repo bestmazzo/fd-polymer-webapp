@@ -1,0 +1,31 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="services/fd-rest-element-service.html">
+<link rel="import" href="fd-polymorphic-item.html">
+<link rel="import" href="object-item.html"> 
+<link rel="import" href="plugin-item.html">
+
+<polymer-element name="fd-generic-list" attributes="show itemKind">
+  <template>
+    <style>
+    :host {
+      display: block;
+      width: 100%;
+    }
+    generic-item {
+      margin-bottom: 30px;
+    }
+    </style>
+    <fd-rest-element-service id="genericService"  fdtype="{{itemKind}}s" fditems="{{items}}"></fd-rest-element-service>
+    <div layout horizontal wrap>
+     <template repeat="{{item in items}}">
+        <fd-polymorphic-item class="item" item="{{item}}" kind="{{itemKind}}-item"></fd-polymorphic-item>
+     </template>
+  </div>    
+  </template>
+
+  <script>
+    Polymer('fd-generic-list', {
+  });
+  </script>
+
+</polymer-element>

@@ -2,28 +2,37 @@
 <link rel="import" href="../../bower_components/core-item/core-item.html">
 <link rel="import" href="../../bower_components/core-menu/core-menu.html">
 <link rel="import" href="../../bower_components/core-menu/core-submenu.html">
-
+<link rel="import" href="../fd-generic-list.html">
+<link rel="import" href="../fd-single-item.html">
 
 <polymer-element name="fd-menu" >
   <template>
      
      
      <core-menu>
-         <core-item icon="maps:map" label="Environments" tag="obj-list"></core-item>
-         <core-submenu  icon="extension" label="Plugins">
+         <core-item icon="maps:map" label="Environments" tag="fd-generic-list" itemKind="object"></core-item>
+         
+         <core-submenu  icon="extension" label="Plugins" tag="fd-generic-list" itemKind="plugin">
            <template repeat="{{plug in fdplugins.fditems}}">
-              <core-item icon="extension" label="{{plug.pluginName}}" tag="plug-list"></core-item>
+           <!-- <core-item icon="extension" label="{{plug.pluginName}}" tag="plug-list"></core-item> -->
+              <core-item icon="extension" label="{{plug.pluginName}}" uuid={{plug.uuid}} tag="fd-single-item" itemKind="plugin"></core-item>
            </template> 
          </core-submenu>
-         <core-item icon="shopping-cart" label="Marketplace" tag="plug-list"></core-item>
-         <core-submenu icon="account-box" label="Objects">
+         
+         <core-item icon="shopping-cart" label="Marketplace" tag="fd-generic-list" itemKind="plugin"></core-item>
+         
+         <core-submenu icon="account-box" label="Objects" tag="fd-generic-list" itemKind="object">>
            <template repeat="{{obj in fdobjects.fditems}}">
-              <core-item icon="account-box" label="{{obj.name}}" type="obj-list"></core-item>
+              <!-- <core-item icon="account-box" label="{{obj.name}}" tag="obj-list" ></core-item>  -->
+               <core-item icon="account-box" label="{{obj.name}}" tag="fd-single-item" itemKind="object" uuid="{{obj.uuid}}" ></core-item> 
            </template> 
          </core-submenu>
-         <core-item icon="send" label="Commands" tag="obj-list"></core-item>
-         <core-item icon="image:flash-on" label="Triggers" tag="obj-list"></core-item>
-         <core-item icon="social:pages" label="Dashboard" tag="obj-list"></core-item>
+         
+         <core-item icon="send" label="Commands" tag="fd-generic-list" itemKind="object"></core-item>
+         
+         <core-item icon="image:flash-on" label="Triggers" tag="fd-generic-list" itemKind="object"></core-item>
+         
+         <core-item icon="social:pages" label="Dashboard" tag="fd-generic-list" itemKind="object"></core-item>
      </core-menu>
   </template>
   <script>

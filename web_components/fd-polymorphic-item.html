@@ -1,0 +1,14 @@
+<polymer-element name="fd-polymorphic-item" attributes="kind item">
+  <script>
+    Polymer('fd-polymorphic-item', {
+      kind: 'div',
+      ready: function() {
+        this.async(function() {
+          var elt = document.createElement(this.kind);
+          elt.item = this.item;
+          this.appendChild(elt);
+        });
+      }
+    });
+  </script>
+</polymer-element>
